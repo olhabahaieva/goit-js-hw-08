@@ -12,9 +12,11 @@ player.on('timeupdate', throttle(function(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data.seconds))
   }, 1000));
 
-player.setCurrentTime(30.456).then(function(seconds) {
+const storedTime = localStorage.getItem(STORAGE_KEY);
+if (storedTime !== null) {
+player.setCurrentTime(parseFloat(storedTime)).then(function(seconds) {
     // seconds = the actual time that the player seeked to
-    localStorage.getItem(STORAGE_KEY);
+    console.log(`Player seeked to ${seconds} seconds.`);
 }).catch(function(error) {
     switch (error.name) {
         case 'RangeError':
@@ -26,3 +28,4 @@ player.setCurrentTime(30.456).then(function(seconds) {
             break;
     }
 });
+}
