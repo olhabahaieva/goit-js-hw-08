@@ -1,5 +1,9 @@
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
+
+// Описан в документации
+import SimpleLightbox from "simplelightbox";
+// Дополнительный импорт стилей
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 // Initial html element to add new pictures
 const gallery = document.querySelector("ul.gallery");
@@ -10,31 +14,17 @@ const markup = galleryItems
     ({ preview, original, description }) =>
       `<li class="gallery__item">
       <a class="gallery__link" href="${original}">
-    <img 
-    class="gallery__image"
-    src="${preview}" 
-    data-source="${original}"
-    alt="${description}"/>
-    </a>
- </li>`
+        <img class="gallery__image" src="${preview}" alt="${description}" />
+      </a>
+    </li>`
   )
   .join("");
+
 gallery.insertAdjacentHTML("beforeend", markup);
+
+const lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
+
 console.log(galleryItems);
-
-gallery.addEventListener("click", onGalleryClick);
-
-function onGalleryClick(evt) {
-  evt.preventDefault();
-  const image = evt.target;
-  if (image.nodeName !== "IMG") {
-    return;
-  }
-  const instance = basicLightbox.create(`
-    <div class="modal">
-    <img src="${image.dataset.source}" class="gallery__item">
-    </div>
-`);
-
-  instance.show();
-}
