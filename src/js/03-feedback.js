@@ -25,6 +25,13 @@ const saveDataToLocalStorage = throttle(() => {
 // Event listener on form submit
 form.addEventListener('submit', (event) => {
   event.preventDefault();
+
+ // Check if required fields are not empty
+ if (form.email.value.trim() === '' || form.message.value.trim() === '') {
+  alert('Please fill in all required fields.');
+  return;
+}
+
   const data = {
     email: form.email.value,
     message: form.message.value
