@@ -14,18 +14,5 @@ player.on('timeupdate', throttle(function(data) {
 
 const storedTime = localStorage.getItem(STORAGE_KEY);
 if (storedTime !== null) {
-player.setCurrentTime(parseFloat(storedTime)).then(function(seconds) {
-    // seconds = the actual time that the player seeked to
-    console.log(`Player seeked to ${seconds} seconds.`);
-}).catch(function(error) {
-    switch (error.name) {
-        case 'RangeError':
-            // the time was less than 0 or greater than the video’s duration
-            break;
-
-        default:
-            // some other error occurred
-            break;
-    }
-});
+player.setCurrentTime(parseFloat(storedTime))
 }
